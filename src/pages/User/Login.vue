@@ -1,5 +1,5 @@
 <template>
-  <MyInput name="name" />
+  <MyInput label="用户名" name="name" />
 </template>
 
 <script setup lang='ts'>
