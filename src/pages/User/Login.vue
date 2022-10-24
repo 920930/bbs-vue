@@ -1,11 +1,9 @@
 <template>
-  <section>
-    login
-  </section>
+  <MyInput name="name" />
 </template>
 
 <script setup lang='ts'>
-import {} from 'vue'
+import MyInput from '@/components/Input/index.vue'
 
 </script>
 
