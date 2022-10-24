@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed bg-gray-800 w-full text-gray-200 h-20">
+  <header class="fixed bg-gray-800 w-full text-gray-200 h-20 z-50">
     <section class="container mx-auto flex items-center text-gray-300">
       <router-link to="/"><img src="http://front.dev.toimc.com:22500/img/logo-2.c66f7210.png" alt=""></router-link>
       <nav class="flex-1 ml-10 space-x-10">
