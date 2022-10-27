@@ -1,7 +1,9 @@
 <template>
-  <div class="flex text-sm">
-    <label for="" v-if="label" class="border border-r-0 px-4 leading-9 bg-gray-100 text-gray-600">{{label}}</label>
-    <input v-model="value" type="text" class="border outline-none px-2 h-10 w-52" />
+  <div class="text-sm">
+    <div class="inline-flex border rounded" :class="errorMessage ? 'border-red-300' : ''">
+      <label for="" v-if="label" class="w-20 inline-block text-center leading-10 bg-gray-100 text-gray-600">{{label}}</label>
+      <input v-model="value" :type="name === 'password' ? 'password' : 'text'" class="outline-none px-2 h-10 w-52 rounded" />
+    </div>
     <span class="leading-9 pl-2 text-red-600">{{ errorMessage }}</span>
   </div>
 </template>
@@ -13,12 +15,6 @@ const props = defineProps<{
   name: string;
   label?: string;
 }>();
-function isRequired(value: any) {
-  if (value && value.trim()) {
-    return true;
-  }
-  return 'This is required';
-}
 const nameRef = toRef(props, 'name');
-const { errorMessage, value } = useField(nameRef, isRequired);
+const { errorMessage, value } = useField(nameRef, undefined);
 </script>
