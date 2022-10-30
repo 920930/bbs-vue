@@ -7,7 +7,10 @@ import FooterVue from './pages/layout/Footer.vue';
 <template>
   <HeaderVue />
   <main class="container mx-auto my-5">
-    <RouterView />
+    <Suspense>
+      <RouterView />
+      <template #fallback>加载中...</template>
+    </Suspense>
   </main>
   <FooterVue />
 </template>

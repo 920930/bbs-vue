@@ -6,11 +6,8 @@ const routes = [
     name: 'index',
     component: () => import('../pages/Index.vue')
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('../pages/User/Login.vue')
-  }
+  { path: '/login', name: 'login', component: () => import('../pages/User/Login.vue') },
+  { path: '/register', name: 'register', component: () => import('../pages/User/Register.vue') },
 ]
 
 const router = createRouter({

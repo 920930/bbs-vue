@@ -28,7 +28,7 @@ interface Item {
 }
 withDefaults(
   defineProps<{
-    showBorder: boolean,
+    showBorder?: boolean,
     item: Item
   }>(), {
     showBorder: true
