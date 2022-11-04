@@ -6,7 +6,7 @@
     </ul>
     <section class="space-y-5 duration-300 mb-6">
       <MyInput label="邮箱" name="email" />
-      <MyInput label="密码" name="password" />
+      <MyInput label="密码" name="password" type="password" />
       <MyInput label="验证码" name="captcha">
         <img :src="captcha" @click="captchaFn" class="cursor-pointer inline-block -mt-2 ml-2" />
       </MyInput>
@@ -23,9 +23,11 @@ import * as yup from 'yup';
 import MyInput from '@/components/Input/index.vue';
 import { getCaptcha } from '@/api/user';
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
 const captcha = ref('');
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const loginSchema = yup.object({
   email: yup.string().required('邮箱必填').email('邮箱不正确'),
@@ -34,8 +36,9 @@ const loginSchema = yup.object({
 const { handleSubmit: loginSubmit } = useForm({
   validationSchema: loginSchema,
 });
-const loginBtn = loginSubmit(value => {
-  console.log(value)
+const loginBtn = loginSubmit(async value => {
+  await userStore.getToken(value.email, value.password)
+  router.push('/')
 })
 const captchaFn = async () => {
   const data = await getCaptcha();

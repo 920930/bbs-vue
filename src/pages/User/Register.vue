@@ -9,16 +9,24 @@
       <MyInput label="昵称" name="name" />
       <MyInput label="密码" name="password" />
       <MyInput label="确认密码" name="pwd" />
-      <MyInput label="验证码" name="captcha" />
+      <MyInput label="验证码" name="captcha">
+        <img :src="captcha.img" @click="captchaFn" class="cursor-pointer inline-block -mt-2 ml-2" />
+      </MyInput>
       <button @click="registerBtn" class=" bg-teal-600 text-sm text-white px-4 py-2">立即注册</button>
     </section>
   </section>
 </template>
 
 <script setup lang='ts'>
+import { reactive } from 'vue';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
-import MyInput from '@/components/Input/index.vue'
+import MyInput from '@/components/Input/index.vue';
+import { getCaptcha, registerApi } from '@/api/user';
+const captcha = reactive({
+  img: '',
+  id: ''
+});
 
 const registerSchema = yup.object({
   email: yup.string().required('邮箱必填').email('邮箱不正确'),
@@ -29,9 +37,16 @@ const registerSchema = yup.object({
 const { handleSubmit: registerSubmit } = useForm({
   validationSchema: registerSchema,
 });
-const registerBtn = registerSubmit(value => {
-  console.log(value)
+const registerBtn = registerSubmit(async (value: any) => {
+  await registerApi({...value, id: captcha.id})
 })
+
+const captchaFn = async () => {
+  const data = await getCaptcha();
+  captcha.img = data.img;
+  captcha.id = data.id;
+}
+captchaFn()
 
 </script>
 
