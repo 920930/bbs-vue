@@ -7,7 +7,7 @@ export const useUserStore = defineStore("user", () => {
     name: "",
     avatar: "",
   });
-  const token = ref("");
+  const token = ref<string | null>(null);
 
   const getToken = async (email: string, password: string) => {
     const { data } = await loginApi({ email, password });
