@@ -2,7 +2,11 @@
   <section class="bg-white p-5">
     <ul class="flex mb-4 border-b">
       <RouterLink to="/login" class="w-20 text-center">登入</RouterLink>
-      <RouterLink to="/register" class="w-20 text-center border-b-2 border-teal-600">注册</RouterLink>
+      <RouterLink
+        to="/register"
+        class="w-20 text-center border-b-2 border-teal-600"
+        >注册</RouterLink
+      >
     </ul>
     <section class="space-y-5 duration-300">
       <MyInput label="邮箱" name="email" />
@@ -10,46 +14,57 @@
       <MyInput label="密码" name="password" />
       <MyInput label="确认密码" name="pwd" />
       <MyInput label="验证码" name="captcha">
-        <img :src="captcha.img" @click="captchaFn" class="cursor-pointer inline-block -mt-2 ml-2" />
+        <img
+          :src="captcha.img"
+          @click="captchaFn"
+          class="cursor-pointer inline-block -mt-2 ml-2"
+        />
       </MyInput>
-      <button @click="registerBtn" class=" bg-teal-600 text-sm text-white px-4 py-2">立即注册</button>
+      <button
+        @click="registerBtn"
+        class="bg-teal-600 text-sm text-white px-4 py-2"
+      >
+        立即注册
+      </button>
     </section>
   </section>
 </template>
 
-<script setup lang='ts'>
-import { reactive } from 'vue';
-import { useForm } from 'vee-validate';
-import * as yup from 'yup';
-import MyInput from '@/components/Input/index.vue';
-import { getCaptcha, registerApi } from '@/api/user';
+<script setup lang="ts">
+import { reactive } from "vue";
+import { useForm } from "vee-validate";
+import * as yup from "yup";
+import MyInput from "@/components/Input/index.vue";
+import { getCaptcha } from "@/api/user";
+import { useUserStore } from "@/stores/user";
 const captcha = reactive({
-  img: '',
-  id: ''
+  img: "",
+  id: "",
 });
+const userStore = useUserStore();
 
 const registerSchema = yup.object({
-  email: yup.string().required('邮箱必填').email('邮箱不正确'),
-  name: yup.string().required('昵称必填'),
-  password: yup.string().required('密码必填').min(6, '密码至少6位数'),
-  pwd: yup.string().required('确认密码必填').oneOf([yup.ref('password'), null], '两次密码不一致'),
+  email: yup.string().required("邮箱必填").email("邮箱不正确"),
+  name: yup.string().required("昵称必填"),
+  password: yup.string().required("密码必填").min(6, "密码至少6位数"),
+  pwd: yup
+    .string()
+    .required("确认密码必填")
+    .oneOf([yup.ref("password"), null], "两次密码不一致"),
 });
-const { handleSubmit: registerSubmit } = useForm({
+const { handleSubmit } = useForm({
   validationSchema: registerSchema,
 });
-const registerBtn = registerSubmit(async (value: any) => {
-  await registerApi({...value, id: captcha.id})
-})
+const registerBtn = handleSubmit(async (value: any) => {
+  userStore.registerEvent({ ...value, id: captcha.id });
+});
 
 const captchaFn = async () => {
   const data = await getCaptcha();
   captcha.img = data.img;
   captcha.id = data.id;
-}
-captchaFn()
-
+};
+captchaFn();
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
