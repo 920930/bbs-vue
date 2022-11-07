@@ -15,5 +15,7 @@ module.exports = {
   rules: {
     //关闭组件命名规则
     "vue/multi-word-component-names": "off",
+    endOfLine: "auto",
+    'space-before-function-paren': 0,
   },
 };

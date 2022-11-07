@@ -4,7 +4,8 @@ import { loginApi, getUserApi, registerApi } from "@/api/user";
 
 export const useUserStore = defineStore("user", () => {
   const user = reactive({
-    realName: "",
+    name: "",
+    avatar: "",
   });
   const token = ref("");
 
@@ -16,12 +17,19 @@ export const useUserStore = defineStore("user", () => {
 
   const registerEvent = async (info: any) => {
     const data = await registerApi(info);
-    console.log(data);
+    if (data) {
+      token.value = data;
+      getUser(data);
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const getUser = async (token: string) => {
     const { data } = await getUserApi(token);
-    user.realName = data.realName;
+    user.name = data.name;
+    user.avatar = data.avatar;
   };
 
   return { token, user, getToken, getUser, registerEvent };

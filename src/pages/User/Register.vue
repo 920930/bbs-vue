@@ -37,11 +37,13 @@ import * as yup from "yup";
 import MyInput from "@/components/Input/index.vue";
 import { getCaptcha } from "@/api/user";
 import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 const captcha = reactive({
   img: "",
   id: "",
 });
 const userStore = useUserStore();
+const router = useRouter();
 
 const registerSchema = yup.object({
   email: yup.string().required("邮箱必填").email("邮箱不正确"),
@@ -56,7 +58,8 @@ const { handleSubmit } = useForm({
   validationSchema: registerSchema,
 });
 const registerBtn = handleSubmit(async (value: any) => {
-  userStore.registerEvent({ ...value, id: captcha.id });
+  const bool = await userStore.registerEvent({ ...value, id: captcha.id });
+  if (bool) router.push("/");
 });
 
 const captchaFn = async () => {
