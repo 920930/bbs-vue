@@ -1,18 +1,27 @@
 import axios from "axios";
+import { useUserStore } from '../stores/user'
 
 axios.defaults.baseURL = 'http://127.0.0.1:7001/api';
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.request.use(
-  config => config,
+  config => {
+    const userStore = useUserStore();
+    if( userStore.token && config.headers) {
+      config.headers['Authorization '] = userStore.token
+    }
+    return config
+  },
   error => Promise.reject(error)
 )
 
 axios.interceptors.response.use(
   res => {
     if(res.status === 200) {
-      if(res.data.status === 200) return res.data;
+      if(res.data.status === 200) {
+        return res.data;
+      }
       handleError(res.data.status, res.data.message)
     } else {
       console.log(res.data)

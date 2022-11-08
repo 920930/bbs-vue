@@ -10,7 +10,7 @@
       <section class="flex items-center">
         <i class="iconfont icon-xiaolian" style="font-size: 26px"></i>
         <router-link to="/login" class="ml-4 mr-6">登录</router-link>
-        <router-link to="/">注册</router-link>
+        <router-link to="/register">注册</router-link>
       </section>
     </section>
   </header>

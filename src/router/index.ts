@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useUserStore } from "@/stores/user";
-import { useLocalStorage } from "@/hooks/localStorage";
-const userStore = useUserStore();
-const { getToken, getUser } = useLocalStorage()
+import { useLocalHooks } from "@/hooks/localHook";
 
 const routes = [
   {
@@ -28,14 +25,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const { getLocalToken, getLocalUser, userStore } = useLocalHooks()
   if(!userStore.token) {
-    const token = getToken()
-    if (token) {
-      userStore.token = token;
-      const user = getUser();
-      userStore.user.name = user.name;
-      userStore.user.avatar = user.avatar;
-    }
+    getLocalToken()
+    getLocalUser()
   }
   if (to.name === "login") {
     console.log(from);

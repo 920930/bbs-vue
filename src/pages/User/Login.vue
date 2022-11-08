@@ -31,13 +31,13 @@ import { useRouter } from "vue-router";
 import { useForm } from "vee-validate";
 import * as yup from "yup";
 import MyInput from "@/components/Input/index.vue";
-import { getCaptcha } from "@/api/user";
+import { captchaApi } from "@/api/user";
 import { ref } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useLocalHooks } from "@/hooks/localHook";
 const captcha = ref("");
 
 const router = useRouter();
-const userStore = useUserStore();
+const userStore = useLocalHooks();
 
 const loginSchema = yup.object({
   email: yup.string().required("邮箱必填").email("邮箱不正确"),
@@ -47,11 +47,11 @@ const { handleSubmit: loginSubmit } = useForm({
   validationSchema: loginSchema,
 });
 const loginBtn = loginSubmit(async (value) => {
-  await userStore.getToken(value.email, value.password);
+  await userStore.getLoginFn(value.email, value.password);
   router.push("/");
 });
 const captchaFn = async () => {
-  const data = await getCaptcha();
+  const data = await captchaApi();
   captcha.value = data.img;
 };
 captchaFn();

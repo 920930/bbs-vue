@@ -1,7 +1,7 @@
 import axios from "@/utils/http";
-import type { ICaptcha } from "@/typings";
+// import type { ICaptcha } from "@/typings";
 
-export const getCaptcha = async (): Promise<{id: string; img: string}> => {
+export const captchaApi = async (): Promise<{id: string; img: string}> => {
   const { data } = await axios.get('/captcha');
   return data
 }
@@ -16,7 +16,7 @@ export const registerApi = async (value: any) => {
   return data
 }
 
-export const getUserApi = async (token: string) => {
-  const { data } = await axios.get('/user', {params: { token }});
+export const userApi = async () => {
+  const { data } = await axios.get('/user');
   return data
 }

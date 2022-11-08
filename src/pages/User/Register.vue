@@ -35,14 +35,14 @@ import { reactive } from "vue";
 import { useForm } from "vee-validate";
 import * as yup from "yup";
 import MyInput from "@/components/Input/index.vue";
-import { getCaptcha } from "@/api/user";
-import { useUserStore } from "@/stores/user";
+import { captchaApi } from "@/api/user";
 import { useRouter } from "vue-router";
+import { useLocalHooks } from "@/hooks/localHook";
 const captcha = reactive({
   img: "",
   id: "",
 });
-const userStore = useUserStore();
+const userHook = useLocalHooks();
 const router = useRouter();
 
 const registerSchema = yup.object({
@@ -58,12 +58,12 @@ const { handleSubmit } = useForm({
   validationSchema: registerSchema,
 });
 const registerBtn = handleSubmit(async (value: any) => {
-  const bool = await userStore.registerEvent({ ...value, id: captcha.id });
-  if (bool) router.push("/");
+  await userHook.getRegisterFn({ ...value, id: captcha.id });
+  if (userHook.userStore.token) router.push("/");
 });
 
 const captchaFn = async () => {
-  const data = await getCaptcha();
+  const data = await captchaApi();
   captcha.img = data.img;
   captcha.id = data.id;
 };
