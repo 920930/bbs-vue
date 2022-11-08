@@ -20,14 +20,13 @@
   </header>
   <section class="bg-white pt-16">
     <div class="container mx-auto flex py-2.5 text-sm">
-      <nav class="flex-1 space-x-10">
-        <a href="">首页</a>
-        <a href="">提问</a>
-        <a href="">分享</a>
-        <a href="">讨论</a>
-        <a href="">建议</a>
-        <a href="">公告</a>
-        <a href="">动态</a>
+      <nav class="flex-1 space-x-9">
+        <router-link to="/">首页</router-link>
+        <RouterLink v-for="(menu, i) in menus" :to="menu.path" :key="i">{{menu.title}}</RouterLink>
+        <span v-if="userStore.token" class="border-l pl-10 space-x-6">
+          <a href="">我发布的帖子</a>
+          <a href="">我收藏的帖子</a>
+        </span>
       </nav>
       <aside class="space-x-4">
         <button>搜索</button>
@@ -40,7 +39,14 @@
 <script setup lang='ts'>
 import { useUserStore } from '@/stores/user';
 const userStore = useUserStore();
-
+const menus = [
+  { path: '/ask', title: '提问', hasNes: false },
+  { path: '/share', title: '分享', hasNes: false },
+  { path: '/discuss', title: '讨论', hasNes: false },
+  { path: '/advise', title: '建议', hasNes: false },
+  { path: '/notice', title: '公告', hasNes: false },
+  { path: '/logs', title: '动态', hasNes: false },
+]
 </script>
 
 <style lang="scss" scoped>

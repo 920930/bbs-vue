@@ -5,7 +5,7 @@ const routes = [
   {
     path: "/",
     name: "index",
-    component: () => import("../pages/Index.vue"),
+    component: () => import("../pages/Cate/Index.vue"),
   },
   {
     path: "/login",
@@ -17,11 +17,42 @@ const routes = [
     name: "register",
     component: () => import("../pages/User/Register.vue"),
   },
+  {
+    path: "/ask",
+    name: "ask",
+    component: () => import("../pages/Cate/Ask.vue"),
+  },
+  {
+    path: "/share",
+    name: "share",
+    component: () => import("../pages/Cate/Share.vue"),
+  },
+  {
+    path: "/discuss",
+    name: "discuss",
+    component: () => import("../pages/Cate/Discuss.vue"),
+  },
+  {
+    path: "/advise",
+    name: "advise",
+    component: () => import("../pages/Cate/Advise.vue"),
+  },
+  {
+    path: "/notice",
+    name: "notice",
+    component: () => import("../pages/Cate/Notice.vue"),
+  },
+  {
+    path: "/logs",
+    name: "logs",
+    component: () => import("../pages/Cate/Logs.vue"),
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+  linkExactActiveClass: 'text-green-600',
 });
 
 router.beforeEach((to, from, next) => {
