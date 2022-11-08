@@ -30,8 +30,10 @@ router.beforeEach((to, from, next) => {
     getLocalToken()
     getLocalUser()
   }
-  if (to.name === "login") {
-    console.log(from);
+  if (to.name === "login" || to.name === 'register') {
+    if(userStore.token) {
+      return next({path: from.path})
+    }
   }
   next();
 });
