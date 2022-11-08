@@ -13,7 +13,7 @@
       <MyInput label="密码" name="password" type="password" />
       <MyInput label="验证码" name="captcha">
         <img
-          :src="captcha"
+          :src="captcha.img"
           @click="captchaFn"
           class="cursor-pointer inline-block -mt-2 ml-2"
         />
@@ -32,27 +32,31 @@ import { useForm } from "vee-validate";
 import * as yup from "yup";
 import MyInput from "@/components/Input/index.vue";
 import { captchaApi } from "@/api/user";
-import { ref } from "vue";
+import { reactive } from "vue";
 import { useLocalHooks } from "@/hooks/localHook";
-const captcha = ref("");
+const captcha = reactive({
+  id: '',
+  img: ''
+});
 
 const router = useRouter();
 const userStore = useLocalHooks();
 
 const loginSchema = yup.object({
   email: yup.string().required("邮箱必填").email("邮箱不正确"),
-  password: yup.string().required("密码必填").min(8, "密码至少8位数"),
+  password: yup.string().required("密码必填").min(6, "密码至少6位数"),
 });
 const { handleSubmit: loginSubmit } = useForm({
   validationSchema: loginSchema,
 });
 const loginBtn = loginSubmit(async (value) => {
-  await userStore.getLoginFn(value.email, value.password);
+  await userStore.getLoginFn({...value, id: captcha.id});
   router.push("/");
 });
 const captchaFn = async () => {
   const data = await captchaApi();
-  captcha.value = data.img;
+  captcha.img = data.img;
+  captcha.id = data.id;
 };
 captchaFn();
 </script>

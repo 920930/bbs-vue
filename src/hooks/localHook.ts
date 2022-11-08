@@ -1,4 +1,4 @@
-import { loginApi, registerApi, userApi } from '@/api/user';
+import { loginApi, registerApi } from '@/api/user';
 import { useUserStore } from '@/stores/user';
 const TOKEN = "token";
 const USER = "user";
@@ -32,20 +32,14 @@ export const useLocalHooks = () => {
     globalThis.localStorage.removeItem(USER)
     userStore.$reset();
   }
-  const getLoginFn = async (email: string, password: string) => {
-    const token = await loginApi({email, password});
+  const getLoginFn = async (val: any) => {
+    const {token, user} = await loginApi(val);
     setToken(token)
-    getUserFn()
+    setUser(user)
   }
   const getRegisterFn = async (info: any) => {
-    const token = await registerApi(info)
-    if (token) {
-      setToken(token)
-      getUserFn();
-    }
-  }
-  const getUserFn = async () => {
-    const user = await userApi();
+    const {token, user} = await registerApi(info)
+    setToken(token)
     setUser(user)
   }
   return {
