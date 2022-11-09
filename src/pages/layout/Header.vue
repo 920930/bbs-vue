@@ -13,15 +13,15 @@
       </section>
       <section class="flex items-center" v-else>
         <i class="iconfont icon-xiaolian" style="font-size: 26px"></i>
-        <router-link to="/login" class="ml-4 mr-6">登录</router-link>
-        <router-link to="/register">注册</router-link>
+        <RouterLink to="/login" class="ml-4 mr-6">登录</RouterLink>
+        <RouterLink to="/register">注册</RouterLink>
       </section>
     </section>
   </header>
   <section class="bg-white pt-16">
     <div class="container mx-auto flex py-2.5 text-sm">
       <nav class="flex-1 space-x-9">
-        <router-link to="/">首页</router-link>
+        <RouterLink to="/">首页</RouterLink>
         <RouterLink v-for="(menu, i) in menus" :to="menu.path" :key="i">{{menu.title}}</RouterLink>
         <span v-if="userStore.token" class="border-l pl-10 space-x-6">
           <a href="">我发布的帖子</a>
@@ -30,7 +30,7 @@
       </nav>
       <aside class="space-x-4">
         <button>搜索</button>
-        <button>发表新帖</button>
+        <button @click="$router.push('/user/add')">发表新帖</button>
       </aside>
     </div>
   </section>

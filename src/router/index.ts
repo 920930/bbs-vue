@@ -22,6 +22,20 @@ const routes = [
     name: "cate",
     component: () => import("../pages/Cate/Index.vue"),
   },
+  {
+    path: "/user",
+    name: "user",
+    meta: { auth: true },
+    component: () => import("../pages/User/Index.vue"),
+    children: [
+      {
+        path: "add",
+        name: "userAdd",
+        meta: { auth: true },
+        component: () => import("../pages/User/Add.vue"),
+      }
+    ]
+  },
 ];
 
 const router = createRouter({
