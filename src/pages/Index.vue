@@ -30,6 +30,16 @@
       </section>
     </section>
     <section class="w-80 ml-5">
+      <Card title="温馨通道">
+        <ul class="grid grid-cols-2 text-center border border-b-0 border-r-0">
+          <li class="border-r border-b py-2">gitlab</li>
+          <li class="border-r border-b py-2">gitlab</li>
+          <li class="border-r border-b py-2">gitlab</li>
+          <li class="border-r border-b py-2">gitlab</li>
+          <li class="border-r border-b py-2">gitlab</li>
+          <li class="border-r border-b py-2">gitlab</li>
+        </ul>
+      </Card>
       <Card>
         <template #title>
           <span class="border-r mr-3 pr-3">签到</span>
@@ -56,24 +66,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useRoute } from 'vue-router';
-import { listApi } from '@/api/article';
 import LiItem from '@/components/Item/index.vue'
 import Card from '@/components/Card/index.vue'
 
-const route = useRoute();
-const param = computed(() => route.params as {id: string})
-watch(param, (newId) => console.log(newId))
-
-const getArticle = async () => {
-  const data = await listApi(param.value.id);
-  console.log(data)
-}
-getArticle()
 const lists = [
   {cateId: { title: '提问' }, title: '海上生明月 天涯共此时', userId: { name: 'Admin' }, createdAt: '2022-10-17', read: 210},
   {cateId: { title: '综合' }, title: '中国式现代化打破西方垄断', userId: { name: 'Admin' }, createdAt: '2022-10-17', read: 210},
+  {cateId: { title: '回答' }, title: '中国车准备好了吗？', userId: { name: 'Admin' }, createdAt: '2022-10-17', read: 210},
+  {cateId: { title: '提问' }, title: '从国庆节电影《万里归途》大热看中国电影情况', userId: { name: 'Admin' }, createdAt: '2022-10-17', read: 210},
+  {cateId: { title: '提问' }, title: '让青春在勇毅前行中绽放光彩', userId: { name: 'Admin' }, createdAt: '2022-10-17', read: 210},
+  {cateId: { title: '提问' }, title: '香港可在增强新动能中广纳优才', userId: { name: 'Admin' }, createdAt: '2022-10-17', read: 210},
 ]
 
 const moreBtn = () => {

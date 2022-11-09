@@ -11,8 +11,8 @@
     <section class="space-y-5 duration-300">
       <MyInput label="邮箱" name="email" />
       <MyInput label="昵称" name="name" />
-      <MyInput label="密码" name="password" />
-      <MyInput label="确认密码" name="pwd" />
+      <MyInput label="密码" name="password" type="password" />
+      <MyInput label="确认密码" name="pwd" type="password" />
       <MyInput label="验证码" name="captcha">
         <img
           :src="captcha.img"

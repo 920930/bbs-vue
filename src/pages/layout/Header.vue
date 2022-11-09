@@ -40,12 +40,12 @@
 import { useUserStore } from '@/stores/user';
 const userStore = useUserStore();
 const menus = [
-  { path: '/ask', title: '提问', hasNes: false },
-  { path: '/share', title: '分享', hasNes: false },
-  { path: '/discuss', title: '讨论', hasNes: false },
-  { path: '/advise', title: '建议', hasNes: false },
-  { path: '/notice', title: '公告', hasNes: false },
-  { path: '/logs', title: '动态', hasNes: false },
+  { path: '/index/ask', title: '提问', hasNes: false },
+  { path: '/index/share', title: '分享', hasNes: false },
+  { path: '/index/discuss', title: '讨论', hasNes: false },
+  { path: '/index/advise', title: '建议', hasNes: false },
+  { path: '/index/notice', title: '公告', hasNes: false },
+  { path: '/index/logs', title: '动态', hasNes: false },
 ]
 </script>
 
