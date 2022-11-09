@@ -8,7 +8,7 @@
         >注册</RouterLink
       >
     </ul>
-    <section class="space-y-5 duration-300">
+    <section class="space-y-5 duration-300 w-full md:w-96">
       <MyInput label="邮箱" name="email" />
       <MyInput label="昵称" name="name" />
       <MyInput label="密码" name="password" type="password" />

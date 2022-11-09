@@ -30,7 +30,7 @@
       </nav>
       <aside class="space-x-4">
         <button>搜索</button>
-        <button @click="$router.push('/user/add')">发表新帖</button>
+        <button v-if="userStore.token" @click="$router.push('/user/add')">发表新帖</button>
       </aside>
     </div>
   </section>
